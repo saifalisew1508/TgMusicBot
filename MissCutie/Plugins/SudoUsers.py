@@ -106,7 +106,7 @@ async def userdel(_, message: Message):
             await message.reply_text(
                 f"Removed **{user.mention}** from {MUSIC_BOT_NAME}'s Sudo."
             )
-            return os.system(f"kill -9 {os.getpid()} && python3 -m Yukki")
+            return os.system(f"kill -9 {os.getpid()} && python3 -m MissCutie")
         await message.reply_text(f"Something wrong happened.")
         return
     from_user_id = message.from_user.id
