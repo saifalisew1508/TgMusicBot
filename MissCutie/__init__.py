@@ -36,7 +36,7 @@ MOD_NOLOAD = []
 
 ### Mongo DB
 MONGODB_CLI = Bot(mango)
-db = MONGODB_CLI.Yukki
+db = MONGODB_CLI.MissCutie
 
 ### Boot Time
 boottime = time.time()
