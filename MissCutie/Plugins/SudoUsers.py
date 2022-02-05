@@ -67,7 +67,7 @@ async def useradd(_, message: Message):
             await message.reply_text(
                 f"Added **{user.mention}** to Sudo Users."
             )
-            os.system(f"kill -9 {os.getpid()} && python3 -m Yukki")
+            os.system(f"kill -9 {os.getpid()} && python3 -m MissCutie")
         else:
             await message.reply_text("Failed")
         return
@@ -80,7 +80,7 @@ async def useradd(_, message: Message):
         await message.reply_text(
             f"Added **{message.reply_to_message.from_user.mention}** to Sudo Users"
         )
-        os.system(f"kill -9 {os.getpid()} && python3 -m Yukki")
+        os.system(f"kill -9 {os.getpid()} && python3 -m MissCutie")
     else:
         await message.reply_text("Failed")
     return
