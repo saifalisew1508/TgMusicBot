@@ -11,7 +11,7 @@ from MissCutie import BOT_USERNAME, MUSIC_BOT_NAME, app, db_mem
 from MissCutie.Core.PyTgCalls import Queues
 from MissCutie.Core.PyTgCalls.Converter import convert
 from MissCutie.Core.PyTgCalls.Downloader import download
-from MissCutie.Core.PyTgCalls.Yukki import (join_stream, pause_stream,
+from MissCutie.Core.PyTgCalls.MissCutie import (join_stream, pause_stream,
                                         resume_stream, skip_stream,
                                         skip_video_stream, stop_stream)
 from MissCutie.Database import (_get_playlists, delete_playlist, get_playlist,
