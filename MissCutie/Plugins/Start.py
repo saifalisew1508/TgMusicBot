@@ -275,7 +275,7 @@ async def start_markup_check(_, CallbackQuery):
         }
         volume = 50
         try:
-            await Yukki.pytgcalls.change_volume_call(c_id, volume)
+            await MissCutie.pytgcalls.change_volume_call(c_id, volume)
             await CallbackQuery.answer("Setting Audio Changes ...")
         except:
             return await CallbackQuery.answer("No active Group Call...")
@@ -291,7 +291,7 @@ async def start_markup_check(_, CallbackQuery):
         }
         volume = 100
         try:
-            await Yukki.pytgcalls.change_volume_call(c_id, volume)
+            await MissCutie.pytgcalls.change_volume_call(c_id, volume)
             await CallbackQuery.answer("Setting Audio Changes ...")
         except:
             return await CallbackQuery.answer("No active Group Call...")
