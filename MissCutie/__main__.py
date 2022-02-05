@@ -214,7 +214,7 @@ async def initiate_bot():
             await LOG_CLIENT.join_chat("MissCutie_Support")
         except:
             pass
-    console.print(f"└[red] Yukki Music Bot Boot Completed.")
+    console.print(f"└[red] MissCutie Music Bot Boot Completed.")
     if STRING1 != "None":
         await pytgcalls1.start()
     if STRING2 != "None":
