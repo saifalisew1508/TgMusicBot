@@ -121,7 +121,7 @@ async def userdel(_, message: Message):
         await message.reply_text(
             f"Removed **{mention}** from {MUSIC_BOT_NAME}'s Sudo."
         )
-        return os.system(f"kill -9 {os.getpid()} && python3 -m Yukki")
+        return os.system(f"kill -9 {os.getpid()} && python3 -m MissCutie")
     await message.reply_text(f"Something wrong happened.")
 
 
@@ -182,7 +182,7 @@ async def set_video_limit_kid(_, message: Message):
     )
 
 
-## Maintenance Yukki
+## Maintenance MissCutie
 
 
 @app.on_message(filters.command("maintenance") & filters.user(SUDOERS))
