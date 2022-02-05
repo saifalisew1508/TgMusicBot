@@ -65,7 +65,7 @@ Read [Docs](https://saifalisew1508.gitbook.io/MissCutieMusicBot-New/deployment/r
 
 
 ```console
-shikhar@MacBook~ $ git clone https://github.com/notreallyshikhar/YukkiMusicBot
+saifalisew1508@MacBook~ $ git clone https://github.com/saifalisew1508/MissCutieMusicBot-New
 saifalisew1508@MacBook~ $ cd YukkiMusicBot
 saifalisew1508@MacBook~ $ pip3 install -U -r requirements.txt
 saifalisew1508@MacBook~ $ cp sample.env .env
