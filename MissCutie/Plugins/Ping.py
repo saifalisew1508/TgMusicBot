@@ -7,7 +7,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 
 from MissCutie import BOT_USERNAME, MUSIC_BOT_NAME, app, boottime
-from Yukki.Utilities.ping import get_readable_time
+from MissCutie.Utilities.ping import get_readable_time
 
 __MODULE__ = "Ping"
 __HELP__ = """
