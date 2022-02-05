@@ -7,7 +7,7 @@ from pyrogram.types import InlineKeyboardMarkup
 from config import get_queue
 from MissCutie import BOT_USERNAME, db_mem
 from MissCutie.Core.PyTgCalls import Queues
-from MissCutie.Core.PyTgCalls.Yukki import join_stream
+from MissCutie.Core.PyTgCalls.MissCutie import join_stream
 from MissCutie.Database import (add_active_chat, add_active_video_chat,
                             is_active_chat, music_off, music_on)
 from MissCutie.Inline import (audio_markup, audio_markup2, primary_markup,
