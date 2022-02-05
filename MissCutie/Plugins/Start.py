@@ -12,7 +12,7 @@ from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
 from MissCutie import ASSIDS, BOT_ID, MUSIC_BOT_NAME, OWNER_ID, SUDOERS, app
 from MissCutie import boottime as bot_start_time
 from MissCutie import db, random_assistant
-from MissCutie.Core.PyTgCalls import Yukki
+from MissCutie.Core.PyTgCalls import MissCutie
 from MissCutie.Database import (add_nonadmin_chat, add_served_chat,
                             blacklisted_chats, get_assistant, get_authuser,
                             get_authuser_names, get_start, is_nonadmin_chat,
@@ -259,7 +259,7 @@ async def start_markup_check(_, CallbackQuery):
         }
         volume = 25
         try:
-            await Yukki.pytgcalls.change_volume_call(c_id, volume)
+            await MissCutie.pytgcalls.change_volume_call(c_id, volume)
             await CallbackQuery.answer("Setting Audio Changes ...")
         except:
             return await CallbackQuery.answer("No active Group Call...")
