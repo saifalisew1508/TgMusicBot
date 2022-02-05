@@ -567,7 +567,7 @@ async def check_playlist(_, CallbackQuery):
         await CallbackQuery.answer()
         await CallbackQuery.message.delete()
         msg = f"Fetched Playlist:\n\n"
-        for shikhar in _playlist:
+        for saifalisew1508 in _playlist:
             j += 1
             _note = await get_playlist(user_id, shikhar, genre)
             title = _note["title"]
@@ -623,7 +623,7 @@ async def del_playlist(_, CallbackQuery):
     else:
         await CallbackQuery.message.delete()
         await CallbackQuery.answer()
-        for shikhar in _playlist:
+        for saifalisew1508 in _playlist:
             await delete_playlist(user_id, shikhar, genre)
     await CallbackQuery.message.reply_text(
         f"Successfully deleted {type}'s {genre} whole playlist\n\nBy :- {CallbackQuery.from_user.mention}"
