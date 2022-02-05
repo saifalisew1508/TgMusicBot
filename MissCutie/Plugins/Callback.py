@@ -377,8 +377,8 @@ async def play_playlist(_, CallbackQuery):
         j = 0
         for_t = 0
         for_p = 0
-        for shikhar in _playlist:
-            _note = await get_playlist(user_id, shikhar, type)
+        for saifalisew1508 in _playlist:
+            _note = await get_playlist(user_id, saifalisew1508, type)
             title = _note["title"]
             videoid = _note["videoid"]
             url = f"https://www.youtube.com/watch?v={videoid}"
