@@ -1,6 +1,6 @@
 import random
 
-from Yukki.Database import get_theme
+from MissCutie.Database import get_theme
 
 themes = [
     "blue",
