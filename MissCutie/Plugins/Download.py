@@ -129,7 +129,7 @@ async def boom(_, CallbackQuery):
 👀**Views:** `{views}`
 🎥**Channel Name:** {channel}
 🔗**Video Link:** [Link]({yturl})
-👤**Requested by:** {mention}
+👤**Requested by:** {}
 
 ⚡️ __Downloaded By {MUSIC_BOT_NAME}__"""
     filext = "%(title)s.%(ext)s"
