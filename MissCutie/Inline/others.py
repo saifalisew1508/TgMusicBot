@@ -8,7 +8,7 @@ def others_markup(videoid, user_id):
     if videoid not in db_mem:
         db_mem[videoid] = {}
     db_mem[videoid]["check"] = 1
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text="🔎 Search Lyrics",
@@ -36,17 +36,13 @@ def others_markup(videoid, user_id):
                 text="⬅️ Go Back",
                 callback_data=f"pr_go_back_timer {videoid}|{user_id}",
             ),
-            InlineKeyboardButton(
-                text="🗑 Close Menu",
-                callback_data=f"close",
-            ),
+            InlineKeyboardButton(text="🗑 Close Menu", callback_data="close"),
         ],
     ]
-    return buttons
 
 
 def download_markup(videoid, user_id):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text="⬇️ Get Audio",
@@ -61,7 +57,6 @@ def download_markup(videoid, user_id):
             InlineKeyboardButton(
                 text="⬅️ Go Back", callback_data=f"goback {videoid}|{user_id}"
             ),
-            InlineKeyboardButton(text="🗑 Close Menu", callback_data=f"close"),
+            InlineKeyboardButton(text="🗑 Close Menu", callback_data="close"),
         ],
     ]
-    return buttons

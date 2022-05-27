@@ -15,10 +15,12 @@ def logging(mystic):
                 what = "Query Given"
             except:
                 try:
-                    if not message.reply_to_message:
-                        what = "Command Given Only"
-                    else:
-                        what = "Replied to any file."
+                    what = (
+                        "Replied to any file."
+                        if message.reply_to_message
+                        else "Command Given Only"
+                    )
+
                 except:
                     what = "Command"
             logger_text = f"""

@@ -33,8 +33,8 @@ HELPABLE = {}
 
 async def initiate_bot():
     with console.status(
-        "[magenta] Finalizing Booting...",
-    ) as status:
+            "[magenta] Finalizing Booting...",
+        ) as status:
         try:
             chats = await get_active_video_chats()
             for chat in chats:
@@ -52,16 +52,14 @@ async def initiate_bot():
         status.update(
             status="[bold blue]Scanning for Plugins", spinner="earth"
         )
-        console.print("Found {} Plugins".format(len(ALL_MODULES)) + "\n")
+        console.print(f"Found {len(ALL_MODULES)} Plugins" + "\n")
         status.update(
             status="[bold red]Importing Plugins...",
             spinner="bouncingBall",
             spinner_style="yellow",
         )
         for all_module in ALL_MODULES:
-            imported_module = importlib.import_module(
-                "MissCutie.Plugins." + all_module
-            )
+            imported_module = importlib.import_module(f"MissCutie.Plugins.{all_module}")
             if (
                 hasattr(imported_module, "__MODULE__")
                 and imported_module.__MODULE__
@@ -214,7 +212,7 @@ async def initiate_bot():
             await LOG_CLIENT.join_chat("MissCutie_Support")
         except:
             pass
-    console.print(f"└[red] MissCutie Music Bot Boot Completed.")
+    console.print("└[red] MissCutie Music Bot Boot Completed.")
     if STRING1 != "None":
         await pytgcalls1.start()
     if STRING2 != "None":
@@ -253,9 +251,7 @@ async def start_command(_, message):
             for x in OWNER_ID:
                 try:
                     user = await app.get_users(x)
-                    user = (
-                        user.first_name if not user.mention else user.mention
-                    )
+                    user = user.mention or user.first_name
                     sex += 1
                 except Exception:
                     continue
@@ -265,11 +261,7 @@ async def start_command(_, message):
                 if user_id not in OWNER_ID:
                     try:
                         user = await app.get_users(user_id)
-                        user = (
-                            user.first_name
-                            if not user.mention
-                            else user.mention
-                        )
+                        user = user.mention or user.first_name
                         if smex == 0:
                             smex += 1
                             text += "\n⭐️<u> **Sudo Users:**</u>\n"
@@ -406,7 +398,7 @@ Click on the buttons for more information.
 All commands can be used with: /
  """
     if mod_match:
-        module = mod_match.group(1)
+        module = mod_match[1]
         text = (
             "{} **{}**:\n".format(
                 "Here is the help for", HELPABLE[module].__MODULE__
@@ -440,7 +432,7 @@ All commands can be used with: /
         )
         await query.message.delete()
     elif prev_match:
-        curr_page = int(prev_match.group(1))
+        curr_page = int(prev_match[1])
         await query.message.edit(
             text=top_text,
             reply_markup=InlineKeyboardMarkup(
@@ -450,7 +442,7 @@ All commands can be used with: /
         )
 
     elif next_match:
-        next_page = int(next_match.group(1))
+        next_page = int(next_match[1])
         await query.message.edit(
             text=top_text,
             reply_markup=InlineKeyboardMarkup(

@@ -3,7 +3,7 @@ from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
 
 
 def song_markup(videoid, duration, user_id, query, query_type):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text="❮",
@@ -25,11 +25,10 @@ def song_markup(videoid, duration, user_id, query, query_type):
             )
         ],
     ]
-    return buttons
 
 
 def song_download_markup(videoid, user_id):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text="⬇️ Get Audio",
@@ -47,4 +46,3 @@ def song_download_markup(videoid, user_id):
             )
         ],
     ]
-    return buttons

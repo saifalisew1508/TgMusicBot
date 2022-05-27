@@ -59,7 +59,4 @@ async def get_m3u8(videoid):
         stderr=asyncio.subprocess.PIPE,
     )
     stdout, stderr = await proc.communicate()
-    if stdout:
-        return 1, stdout.decode().split("\n")[0]
-    else:
-        return 0, stderr.decode()
+    return (1, stdout.decode().split("\n")[0]) if stdout else (0, stderr.decode())
