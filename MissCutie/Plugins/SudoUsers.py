@@ -100,14 +100,14 @@ async def userdel(_, message: Message):
         user = await app.get_users(user)
         from_user = message.from_user
         if user.id not in SUDOERS:
-            return await message.reply_text(f"Not a part of Bot's Sudo.")
+            return await message.reply_text("Not a part of Bot's Sudo.")
         removed = await remove_sudo(user.id)
         if removed:
             await message.reply_text(
                 f"Removed **{user.mention}** from {MUSIC_BOT_NAME}'s Sudo."
             )
             return os.system(f"kill -9 {os.getpid()} && python3 -m MissCutie")
-        await message.reply_text(f"Something wrong happened.")
+        await message.reply_text("Something wrong happened.")
         return
     from_user_id = message.from_user.id
     user_id = message.reply_to_message.from_user.id
@@ -122,7 +122,7 @@ async def userdel(_, message: Message):
             f"Removed **{mention}** from {MUSIC_BOT_NAME}'s Sudo."
         )
         return os.system(f"kill -9 {os.getpid()} && python3 -m MissCutie")
-    await message.reply_text(f"Something wrong happened.")
+    await message.reply_text("Something wrong happened.")
 
 
 @app.on_message(filters.command("sudolist"))
@@ -133,7 +133,7 @@ async def sudoers_list(_, message: Message):
     for x in OWNER_ID:
         try:
             user = await app.get_users(x)
-            user = user.first_name if not user.mention else user.mention
+            user = user.mention or user.first_name
             sex += 1
         except Exception:
             continue
@@ -143,7 +143,7 @@ async def sudoers_list(_, message: Message):
         if user_id not in OWNER_ID:
             try:
                 user = await app.get_users(user_id)
-                user = user.first_name if not user.mention else user.mention
+                user = user.mention or user.first_name
                 if smex == 0:
                     smex += 1
                     text += "\n⭐️<u> **Sudo Users:**</u>\n"
@@ -256,10 +256,8 @@ async def ban_globally(_, message):
             await message.reply_text("You want to block a sudo user? KIDXZ")
         else:
             await add_gban_user(user.id)
-            served_chats = []
             chats = await get_served_chats()
-            for chat in chats:
-                served_chats.append(int(chat["chat_id"]))
+            served_chats = [int(chat["chat_id"]) for chat in chats]
             m = await message.reply_text(
                 f"**Initializing Global Ban on {user.mention}**\n\nExpected Time : {len(served_chats)}"
             )
@@ -307,10 +305,8 @@ __**New Global Ban on {MUSIC_BOT_NAME}**__
             await message.reply_text("Already Gbanned.")
         else:
             await add_gban_user(user_id)
-            served_chats = []
             chats = await get_served_chats()
-            for chat in chats:
-                served_chats.append(int(chat["chat_id"]))
+            served_chats = [int(chat["chat_id"]) for chat in chats]
             m = await message.reply_text(
                 f"**Initializing Gobal Ban on {mention}**\n\nExpected Time : {len(served_chats)}"
             )
@@ -369,7 +365,7 @@ async def unban_globally(_, message):
                 await message.reply_text("He's already free, why bully him?")
             else:
                 await remove_gban_user(user.id)
-                await message.reply_text(f"Ungbanned!")
+                await message.reply_text("Ungbanned!")
         return
     from_user_id = message.from_user.id
     user_id = message.reply_to_message.from_user.id
@@ -389,7 +385,7 @@ async def unban_globally(_, message):
             await message.reply_text("He's already free, why bully him?")
         else:
             await remove_gban_user(user_id)
-            await message.reply_text(f"Ungbanned!")
+            await message.reply_text("Ungbanned!")
 
 
 # Broadcast Message
@@ -397,17 +393,13 @@ async def unban_globally(_, message):
 
 @app.on_message(filters.command("broadcast_pin") & filters.user(SUDOERS))
 async def broadcast_message_pin_silent(_, message):
-    if not message.reply_to_message:
-        pass
-    else:
+    if message.reply_to_message:
         x = message.reply_to_message.message_id
         y = message.chat.id
         sent = 0
         pin = 0
-        chats = []
         schats = await get_served_chats()
-        for chat in schats:
-            chats.append(int(chat["chat_id"]))
+        chats = [int(chat["chat_id"]) for chat in schats]
         for i in chats:
             try:
                 m = await app.forward_messages(i, y, x)
@@ -432,10 +424,8 @@ async def broadcast_message_pin_silent(_, message):
     text = message.text.split(None, 1)[1]
     sent = 0
     pin = 0
-    chats = []
     schats = await get_served_chats()
-    for chat in schats:
-        chats.append(int(chat["chat_id"]))
+    chats = [int(chat["chat_id"]) for chat in schats]
     for i in chats:
         try:
             m = await app.send_message(i, text=text)
@@ -455,17 +445,13 @@ async def broadcast_message_pin_silent(_, message):
 
 @app.on_message(filters.command("broadcast_pin_loud") & filters.user(SUDOERS))
 async def broadcast_message_pin_loud(_, message):
-    if not message.reply_to_message:
-        pass
-    else:
+    if message.reply_to_message:
         x = message.reply_to_message.message_id
         y = message.chat.id
         sent = 0
         pin = 0
-        chats = []
         schats = await get_served_chats()
-        for chat in schats:
-            chats.append(int(chat["chat_id"]))
+        chats = [int(chat["chat_id"]) for chat in schats]
         for i in chats:
             try:
                 m = await app.forward_messages(i, y, x)
@@ -490,10 +476,8 @@ async def broadcast_message_pin_loud(_, message):
     text = message.text.split(None, 1)[1]
     sent = 0
     pin = 0
-    chats = []
     schats = await get_served_chats()
-    for chat in schats:
-        chats.append(int(chat["chat_id"]))
+    chats = [int(chat["chat_id"]) for chat in schats]
     for i in chats:
         try:
             m = await app.send_message(i, text=text)
@@ -513,16 +497,12 @@ async def broadcast_message_pin_loud(_, message):
 
 @app.on_message(filters.command("broadcast") & filters.user(SUDOERS))
 async def broadcast(_, message):
-    if not message.reply_to_message:
-        pass
-    else:
+    if message.reply_to_message:
         x = message.reply_to_message.message_id
         y = message.chat.id
         sent = 0
-        chats = []
         schats = await get_served_chats()
-        for chat in schats:
-            chats.append(int(chat["chat_id"]))
+        chats = [int(chat["chat_id"]) for chat in schats]
         for i in chats:
             try:
                 m = await app.forward_messages(i, y, x)
@@ -539,10 +519,8 @@ async def broadcast(_, message):
         return
     text = message.text.split(None, 1)[1]
     sent = 0
-    chats = []
     schats = await get_served_chats()
-    for chat in schats:
-        chats.append(int(chat["chat_id"]))
+    chats = [int(chat["chat_id"]) for chat in schats]
     for i in chats:
         try:
             m = await app.send_message(i, text=text)

@@ -13,33 +13,28 @@ playlistdb_others = db.playlistothers
 
 
 async def _get_playlists(chat_id: int, type: str) -> Dict[str, int]:
-    if type == "Lofi":
-        xd = playlistdb_lofi
-    elif type == "Weeb":
-        xd = playlistdb_rock
-    elif type == "Sad":
-        xd = playlistdb_sad
-    elif type == "Party":
-        xd = playlistdb_party
-    elif type == "Bollywood":
+    if type == "Bollywood":
         xd = playlistdb_bollywood
     elif type == "Hollywood":
         xd = playlistdb_hollywood
-    elif type == "Punjabi":
-        xd = playlistdb_punjabi
+    elif type == "Lofi":
+        xd = playlistdb_lofi
     elif type == "Others":
         xd = playlistdb_others
+    elif type == "Party":
+        xd = playlistdb_party
+    elif type == "Punjabi":
+        xd = playlistdb_punjabi
+    elif type == "Sad":
+        xd = playlistdb_sad
+    elif type == "Weeb":
+        xd = playlistdb_rock
     _notes = await xd.find_one({"chat_id": chat_id})
-    if not _notes:
-        return {}
-    return _notes["notes"]
+    return _notes["notes"] if _notes else {}
 
 
 async def get_playlist_names(chat_id: int, type: str) -> List[str]:
-    _notes = []
-    for note in await _get_playlists(chat_id, type):
-        _notes.append(note)
-    return _notes
+    return list(await _get_playlists(chat_id, type))
 
 
 async def get_playlist(
@@ -47,10 +42,7 @@ async def get_playlist(
 ) -> Union[bool, dict]:
     name = name
     _notes = await _get_playlists(chat_id, type)
-    if name in _notes:
-        return _notes[name]
-    else:
-        return False
+    return _notes[name] if name in _notes else False
 
 
 async def save_playlist(chat_id: int, name: str, note: dict, type: str):
