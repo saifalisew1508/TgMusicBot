@@ -69,8 +69,6 @@ async def play(_, message: Message):
                 return await mystic.edit(
                     "Live Streaming Playing...Stop it to play music"
                 )
-            else:
-                pass
         except:
             pass
         if audio.file_size > 1073741824:
@@ -87,16 +85,16 @@ async def play(_, message: Message):
             audio.file_unique_id
             + "."
             + (
-                (audio.file_name.split(".")[-1])
-                if (not isinstance(audio, Voice))
-                else "ogg"
+                "ogg"
+                if isinstance(audio, Voice)
+                else audio.file_name.split(".")[-1]
             )
         )
         file_name = path.join(path.realpath("downloads"), file_name)
         file = await convert(
-            (await message.reply_to_message.download(file_name))
-            if (not path.isfile(file_name))
-            else file_name,
+            file_name
+            if path.isfile(file_name)
+            else await message.reply_to_message.download(file_name)
         )
         return await start_stream_audio(
             message,
@@ -114,13 +112,12 @@ async def play(_, message: Message):
                 "**No Limit Defined for Video Calls**\n\nSet a Limit for Number of Maximum Video Calls allowed on Bot by /set_video_limit [Sudo Users Only]"
             )
         count = len(await get_active_video_chats())
-        if int(count) == int(limit):
-            if await is_active_video_chat(message.chat.id):
-                pass
-            else:
-                return await message.reply_text(
-                    "Sorry! Bot only allows limited number of video calls due to CPU overload issues. Many other chats are using video call right now. Try switching to audio or try again later"
-                )
+        if count == int(limit) and not await is_active_video_chat(
+            message.chat.id
+        ):
+            return await message.reply_text(
+                "Sorry! Bot only allows limited number of video calls due to CPU overload issues. Many other chats are using video call right now. Try switching to audio or try again later"
+            )
         mystic = await message.reply_text(
             "🔄 Processing Video... Please Wait!"
         )
@@ -130,8 +127,6 @@ async def play(_, message: Message):
                 return await mystic.edit(
                     "Live Streaming Playing...Stop it to play music"
                 )
-            else:
-                pass
         except:
             pass
         file = await telegram_download(message, mystic)
@@ -143,10 +138,11 @@ async def play(_, message: Message):
         )
     elif url:
         mystic = await message.reply_text("🔄 Processing URL... Please Wait!")
-        if not message.reply_to_message:
-            query = message.text.split(None, 1)[1]
-        else:
-            query = message.reply_to_message.text
+        query = (
+            message.reply_to_message.text
+            if message.reply_to_message
+            else message.text.split(None, 1)[1]
+        )
         (
             title,
             duration_min,
@@ -205,8 +201,6 @@ async def Music_Stream(_, CallbackQuery):
                 "Live Streaming Playing...Stop it to play music",
                 show_alert=True,
             )
-        else:
-            pass
     except:
         pass
     callback_data = CallbackQuery.data.strip()
@@ -360,10 +354,7 @@ async def slider_query_results(_, CallbackQuery):
     what = str(what)
     type = int(type)
     if what == "F":
-        if type == 9:
-            query_type = 0
-        else:
-            query_type = int(type + 1)
+        query_type = 0 if type == 9 else int(type + 1)
         await CallbackQuery.answer("Getting Next Result", show_alert=True)
         (
             title,
@@ -383,10 +374,7 @@ async def slider_query_results(_, CallbackQuery):
             media=med, reply_markup=InlineKeyboardMarkup(buttons)
         )
     if what == "B":
-        if type == 0:
-            query_type = 9
-        else:
-            query_type = int(type - 1)
+        query_type = 9 if type == 0 else int(type - 1)
         await CallbackQuery.answer("Getting Previous Result", show_alert=True)
         (
             title,

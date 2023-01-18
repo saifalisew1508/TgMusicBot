@@ -7,9 +7,7 @@ authdb = db.adminauth
 
 async def is_nonadmin_chat(user_id: int) -> bool:
     user = await authdb.find_one({"user_id": user_id})
-    if not user:
-        return False
-    return True
+    return bool(user)
 
 
 async def add_nonadmin_chat(user_id: int):
@@ -46,25 +44,17 @@ async def get_authuser_count() -> dict:
 
 async def _get_authusers(chat_id: int) -> Dict[str, int]:
     _notes = await authuserdb.find_one({"chat_id": chat_id})
-    if not _notes:
-        return {}
-    return _notes["notes"]
+    return _notes["notes"] if _notes else {}
 
 
 async def get_authuser_names(chat_id: int) -> List[str]:
-    _notes = []
-    for note in await _get_authusers(chat_id):
-        _notes.append(note)
-    return _notes
+    return list(await _get_authusers(chat_id))
 
 
 async def get_authuser(chat_id: int, name: str) -> Union[bool, dict]:
     name = name
     _notes = await _get_authusers(chat_id)
-    if name in _notes:
-        return _notes[name]
-    else:
-        return False
+    return _notes[name] if name in _notes else False
 
 
 async def save_authuser(chat_id: int, name: str, note: dict):

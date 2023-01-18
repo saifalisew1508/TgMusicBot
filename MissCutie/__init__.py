@@ -105,8 +105,8 @@ async def initiate_bot():
     )
     console.print(header)
     with console.status(
-        "[magenta] MissCutie Music Bot Booting...",
-    ) as status:
+            "[magenta] MissCutie Music Bot Booting...",
+        ) as status:
         console.print("┌ [red]Booting Up The Clients...\n")
         await app.start()
         console.print("└ [green]Booted Bot Client")
@@ -148,7 +148,7 @@ async def initiate_bot():
         getme = await app.get_me()
         BOT_ID = getme.id
         if getme.last_name:
-            BOT_NAME = getme.first_name + " " + getme.last_name
+            BOT_NAME = f"{getme.first_name} {getme.last_name}"
         else:
             BOT_NAME = getme.first_name
         BOT_USERNAME = getme.username
@@ -211,7 +211,7 @@ async def initiate_bot():
         console.print("\n┌ [red]Loading Sudo Users...")
         sudoersdb = db.sudoers
         sudoers = await sudoersdb.find_one({"sudo": "sudo"})
-        sudoers = [] if not sudoers else sudoers["sudoers"]
+        sudoers = sudoers["sudoers"] if sudoers else []
         for user_id in SUDOERS:
             if user_id not in sudoers:
                 sudoers.append(user_id)

@@ -12,19 +12,18 @@ def _netcat(host, port, content):
     s.sendall(content.encode())
     s.shutdown(socket.SHUT_WR)
     while True:
-        data = s.recv(4096).decode("utf-8").strip("\n\x00")
-        if not data:
+        if data := s.recv(4096).decode("utf-8").strip("\n\x00"):
+            return data
+        else:
             break
-        return data
     s.close()
 
 
 async def paste_queue(content):
     loop = get_running_loop()
-    link = await loop.run_in_executor(
+    return await loop.run_in_executor(
         None, partial(_netcat, "ezup.dev", 9999, content)
     )
-    return link
 
 
 async def isPreviewUp(preview: str) -> bool:
@@ -37,5 +36,5 @@ async def isPreviewUp(preview: str) -> bool:
         if status == 404 or (status == 200 and size == 0):
             await asyncio.sleep(0.4)
         else:
-            return True if status == 200 else False
+            return status == 200
     return False
